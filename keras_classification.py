@@ -10,18 +10,19 @@ numpy.random.seed(2)
 dataset = numpy.loadtxt("prima-indians-diabetes.csv", delimiter=",")
 
 # split into input (X) and output (Y) variables, splitting csv data
-X = dataset[:,0:8]
-Y = dataset[:,8]
+X = dataset[:,0:8] # take first 8 columns that represent input values
+Y = dataset[:,8] # 8th column is result
 
 # split X, Y into a train and test set
 x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=0.2, random_state=42)
 
 # create model, add dense layers one by one specifying activation function
 model = Sequential()
+# input dim set to 8 beacuse of 8 input factors
 model.add(Dense(15, input_dim=8, activation='relu')) # input layer requires input_dim param
-model.add(Dense(13, activation='relu'))
-model.add(Dense(8, activation='relu'))
-model.add(Dense(4, activation='relu'))
+model.add(Dense(100, activation='relu'))
+model.add(Dense(50, activation='relu'))
+model.add(Dense(75, activation='relu'))
 model.add(Dropout(.2))
 model.add(Dense(1, activation='sigmoid')) # sigmoid instead of relu for final probability between 0 and 1
 
@@ -29,7 +30,7 @@ model.add(Dense(1, activation='sigmoid')) # sigmoid instead of relu for final pr
 model.compile(loss="binary_crossentropy", optimizer="adam", metrics=['accuracy'])
 
 # call the function to fit to the data (training the network)
-model.fit(x_train, y_train, epochs = 100, batch_size=20, validation_data=(x_test, y_test))
+model.fit(x_train, y_train, epochs = 1000, batch_size=20, validation_data=(x_test, y_test))
 
 # save the model
 model.save('weights.h5')

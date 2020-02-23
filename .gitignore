@@ -1,2 +1,7 @@
 .vscode
-env
+env/
+
+image_rec/test1
+image_rec/train
+image_rec/test
+image_rec_2/
